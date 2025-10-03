@@ -24,18 +24,37 @@ def heuristica_generica(atividades, tipo, maquinas_m):
         maquinas_indx = 0
 
         maquinas_ordenadas = sorted(maquinas_m.items(), key=lambda item: item[1])
-
         atividades_ordenadas = dict(sorted(atividades.items(), key=lambda item: item[1]))
+
+        capacidade_restante = [cap for _, cap in maquinas_ordenadas]
 
         for atividade, tempo in atividades_ordenadas.items():
 
-            id_maquina = maquinas_ordenadas[maquinas_indx][0] - 1
+            tentativas = 0
+            alocada = False
 
-            maquinas[id_maquina].append((atividade, tempo))
+            while tentativas < 6:
+
+                id_maquina = maquinas_ordenadas[maquinas_indx][0] - 1
+
+                if capacidade_restante[id_maquina] - tempo >= 0:
+                    
+                    maquinas[id_maquina].append((atividade, tempo))
+                    capacidade_restante[id_maquina] -= tempo
+                    alocada = True
+                    break
+
+                maquinas_indx = (maquinas_indx + 1) % 6
+                tentativas += 1
+
+            if not alocada:
+                print(f"Atividade {atividade} não coube em nenhuma máquina")
 
             maquinas_indx = (maquinas_indx + 1) % 6
 
         return maquinas
+
+
     
     if tipo == 'd':
 
