@@ -15,6 +15,8 @@ def calcular_makespan(solucao, tarefas_tempos, maquinas_capacidades):
 
     return max(tempos_por_maquina) if tempos_por_maquina else 0
 
+
+
 def gerar_solucao_inicial(tarefas_tempos, maquinas_capacidades):
     num_maquinas = len(maquinas_capacidades)
     solucao = [[] for _ in range(num_maquinas)]
@@ -43,6 +45,9 @@ def gerar_solucao_inicial(tarefas_tempos, maquinas_capacidades):
             tempos_maquinas[melhor_maquina] = menor_tempo_resultante
 
     return solucao
+
+
+
 
 def gls_para_escalonamento(tarefas_tempos, maquinas_capacidades):
     num_maquinas = len(maquinas_capacidades)
@@ -85,12 +90,13 @@ def gls_para_escalonamento(tarefas_tempos, maquinas_capacidades):
 
     return melhor_solucao, melhor_custo
 
+
+
 def imprimir_resultado_formatado(solucao, makespan, tarefas_tempos, maquinas_capacidades):
-    print("\n--- RESULTADO FINAL ---")
-    print("a) Atribuição final de tarefas às máquinas:")
+    print(" Atribuição final de tarefas às máquinas:")
     for i, maquina in enumerate(solucao):
         id_maquina = i + 1
         capacidade = maquinas_capacidades.get(id_maquina, 1)
         tempo_total = sum(tarefas_tempos.get(tarefa_id, 0) / capacidade for tarefa_id in maquina) if capacidade > 0 else 0
         print(f"   - Máquina {id_maquina} (Capacidade: {capacidade}): {sorted(maquina)} (Tempo Total: {tempo_total:.2f})")
-    print(f"\nb) Valor final do makespan: {makespan:.2f}")
+    print(f"\n Valor final do makespan: {makespan:.2f}")

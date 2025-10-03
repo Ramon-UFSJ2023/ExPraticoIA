@@ -5,9 +5,9 @@ def ler(path, dificulty):
     try:
         with open(path, 'r') as arquivo:
 
-            next(arquivo)
 
             if dificulty == 'f':
+                next(arquivo)
                 for linha in arquivo:
                     dados_linha = linha.strip().split()
                     id_tarefa = int(dados_linha[0])
@@ -24,7 +24,7 @@ def ler(path, dificulty):
                 }
                 for numero_linha, linha in enumerate(arquivo, 1):
                         dados_linha = linha.strip().split()
-                        if numero_linha < 6:
+                        if numero_linha <= 6:
                             id_maquina = int(dados_linha[0])
                             tempo_processamento = int(dados_linha[1])
 
@@ -41,6 +41,7 @@ def ler(path, dificulty):
 
 
             elif dificulty == 'd':
+                next(arquivo)
                 for linha in arquivo:
                     dados_linha = linha.strip().split('   ')
                     id_tarefa, tempo_processamento, prioridades = dados_linha
